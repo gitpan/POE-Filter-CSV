@@ -11,7 +11,7 @@ use strict;
 use Text::CSV;
 use vars qw($VERSION);
 
-$VERSION = '0.1';
+$VERSION = '0.2';
 
 sub new {
   my $class = shift;
@@ -19,6 +19,7 @@ sub new {
 
   my ($self) = {};
 
+  $self->{BUFFER} = [];
   $self->{csv_filter} = Text::CSV->new();
   bless $self, $class;
 }
@@ -37,6 +38,28 @@ sub get {
   return $events;
 }
 
+sub get_one_start {
+  my ($self, $raw) = @_;
+
+  foreach my $event ( @$raw ) {
+	push ( @{ $self->{BUFFER} }, $event );
+  }
+}
+
+sub get_one {
+  my ($self) = shift;
+  my $events = [];
+
+  my ($event) = shift ( @{ $self->{BUFFER} } );
+  if ( defined ( $event ) ) {
+    my ($status) = $self->{csv_filter}->parse($event);
+
+    if ( $status ) {
+	push ( @$events, [ $self->{csv_filter}->fields() ]  );
+    }
+  }
+  return $events;
+}
 
 sub put {
   my ($self,$events) = @_;

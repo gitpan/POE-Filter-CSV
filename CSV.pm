@@ -10,14 +10,15 @@ package POE::Filter::CSV;
 use strict;
 use Text::CSV;
 use vars qw($VERSION);
+use base qw(POE::Filter);
 
-$VERSION = '0.2';
+$VERSION = '1.0';
 
 sub new {
   my $class = shift;
   my %args = @_;
 
-  my ($self) = {};
+  my $self = {};
 
   $self->{BUFFER} = [];
   $self->{csv_filter} = Text::CSV->new();
@@ -42,20 +43,20 @@ sub get_one_start {
   my ($self, $raw) = @_;
 
   foreach my $event ( @$raw ) {
-	push ( @{ $self->{BUFFER} }, $event );
+	push @{ $self->{BUFFER} }, $event;
   }
 }
 
 sub get_one {
-  my ($self) = shift;
+  my $self = shift;
   my $events = [];
 
-  my ($event) = shift ( @{ $self->{BUFFER} } );
+  my $event = shift ( @{ $self->{BUFFER} } );
   if ( defined ( $event ) ) {
-    my ($status) = $self->{csv_filter}->parse($event);
+    my $status = $self->{csv_filter}->parse($event);
 
     if ( $status ) {
-	push ( @$events, [ $self->{csv_filter}->fields() ]  );
+	push @$events, [ $self->{csv_filter}->fields() ];
     }
   }
   return $events;
@@ -67,10 +68,10 @@ sub put {
 
   foreach my $event ( @$events ) {
     if ( ref $event eq 'ARRAY' ) {
-      my ($status) = $self->{csv_filter}->combine(@$event);
+      my $status = $self->{csv_filter}->combine(@$event);
 
       if ( $status ) {
-        push ( @$raw_lines, $self->{csv_filter}->string() );
+        push @$raw_lines, $self->{csv_filter}->string();
       }
 
     } else {

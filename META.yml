@@ -1,0 +1,12 @@
+# http://module-build.sourceforge.net/META-spec.html
+#XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
+name:         POE-Filter-CSV
+version:      1.0
+version_from: CSV.pm
+installdirs:  site
+requires:
+    POE:                           0.0607
+    Text::CSV:                     0
+
+distribution_type: module
+generated_by: ExtUtils::MakeMaker version 6.30

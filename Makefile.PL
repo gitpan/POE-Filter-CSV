@@ -4,12 +4,10 @@ use ExtUtils::MakeMaker;
 
 WriteMakefile(
 			  'NAME'	=> 'POE::Filter::CSV',
-			  'PM'      => { 'CSV.pm' => '$(INST_LIBDIR)/CSV.pm',
-				       },
 			  'PREREQ_PM' => {
 							  'POE'    => 0.06_07,
 							  'Text::CSV'   => 0,
 							 },
-			  'VERSION_FROM' => 'CSV.pm', # finds $VERSION
+			  'VERSION_FROM' => 'lib/POE/Filter/CSV.pm', # finds $VERSION
 			  'dist' => { 'COMPRESS' => 'gzip --best' },
 			 );

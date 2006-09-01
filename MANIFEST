@@ -1,7 +1,10 @@
 README
-CSV.pm
+Changes
+lib/POE/Filter/CSV.pm
 MANIFEST
 t/1.t
+t/2.t
+t/3.t
 Makefile.PL
 examples/test.pl
 examples/test.csv

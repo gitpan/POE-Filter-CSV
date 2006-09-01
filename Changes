@@ -1,0 +1,8 @@
+POE::Filter::CSV
+================
+
+1.1	Fri Sep 01 14:28:31 BST 2006
+	- Reorganised distribution.
+	- Added Changes >:)
+	- Added pod and pod coverage tests
+	- Fixed documentation.

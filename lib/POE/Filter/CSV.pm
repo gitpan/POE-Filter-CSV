@@ -12,7 +12,7 @@ use Text::CSV;
 use vars qw($VERSION);
 use base qw(POE::Filter);
 
-$VERSION = '1.0';
+$VERSION = '1.01';
 
 sub new {
   my $class = shift;
@@ -30,34 +30,25 @@ sub get {
   my $events = [];
 
   foreach my $event ( @$raw ) {
-    my ($status) = $self->{csv_filter}->parse($event);
-
-    if ( $status ) {
-	push ( @$events, [ $self->{csv_filter}->fields() ]  );
-    }
+    my $status = $self->{csv_filter}->parse($event);
+    push @$events, [ $self->{csv_filter}->fields() ] if $status;
   }
   return $events;
 }
 
 sub get_one_start {
   my ($self, $raw) = @_;
-
-  foreach my $event ( @$raw ) {
-	push @{ $self->{BUFFER} }, $event;
-  }
+  push @{ $self->{BUFFER} }, $_ for @$raw;
 }
 
 sub get_one {
   my $self = shift;
   my $events = [];
 
-  my $event = shift ( @{ $self->{BUFFER} } );
+  my $event = shift @{ $self->{BUFFER} };
   if ( defined ( $event ) ) {
     my $status = $self->{csv_filter}->parse($event);
-
-    if ( $status ) {
-	push @$events, [ $self->{csv_filter}->fields() ];
-    }
+    push @$events, [ $self->{csv_filter}->fields() ] if $status;
   }
   return $events;
 }
@@ -69,10 +60,7 @@ sub put {
   foreach my $event ( @$events ) {
     if ( ref $event eq 'ARRAY' ) {
       my $status = $self->{csv_filter}->combine(@$event);
-
-      if ( $status ) {
-        push @$raw_lines, $self->{csv_filter}->string();
-      }
+      push @$raw_lines, $self->{csv_filter}->string() if $status;
 
     } else {
 	warn "non arrayref passed to put()\n";
@@ -107,28 +95,36 @@ a wrapper for the module L<Text::CSV|Text::CSV>.
 A more comprehensive demonstration of the use to which this module can be
 put to is in the examples/ directory of this distribution.
 
+=head1 CONSTRUCTOR
+
+=over
+
+=item new
+
+Creates a new POE::Filter::CSV object. Takes no arguments.
+
+=back
+
 =head1 METHODS
 
 =over
 
-=item *
+=item get
 
-new
+=item get_one_start
 
-Creates a new POE::Filter::CSV object. Takes no arguments.
-
-=item *
-
-get
+=item get_one
 
 Takes an arrayref which is contains lines of CSV formatted input. Returns an arrayref of lists of
 fields.
 
-=item *
-
-put
+=item put
 
 Takes an arrayref containing arrays of fields and returns an arrayref containing CSV formatted lines.
+
+=item debug
+
+
 
 =back
 
@@ -139,9 +135,13 @@ Chris "BinGOs" Williams
 =head1 SEE ALSO
 
 L<POE|POE>
+
 L<Text::CSV|Text::CSV>
+
 L<POE::Filter|POE::Filter>
+
 L<POE::Filter::Line|POE::Filter::Line>
+
 L<POE::Filter::Stackable|POE::Filter::Stackable>
 
 =cut

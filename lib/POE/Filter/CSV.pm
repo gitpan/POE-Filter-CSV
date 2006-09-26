@@ -12,7 +12,7 @@ use Text::CSV;
 use vars qw($VERSION);
 use base qw(POE::Filter);
 
-$VERSION = '1.02';
+$VERSION = '1.03';
 
 sub new {
   my $class = shift;
@@ -90,7 +90,7 @@ POE::Filter::CSV -- A POE-based parser for CSV based files.
 =head1 DESCRIPTION
 
 POE::Filter::CSV provides a convenient way to parse CSV files. It is
-a wrapper for the module L<Text::CSV|Text::CSV>.
+a wrapper for the module L<Text::CSV>.
 
 A more comprehensive demonstration of the use to which this module can be
 put to is in the examples/ directory of this distribution.
@@ -134,14 +134,14 @@ Chris "BinGOs" Williams
 
 =head1 SEE ALSO
 
-L<POE|POE>
+L<POE>
 
-L<Text::CSV|Text::CSV>
+L<Text::CSV>
 
-L<POE::Filter|POE::Filter>
+L<POE::Filter>
 
-L<POE::Filter::Line|POE::Filter::Line>
+L<POE::Filter::Line>
 
-L<POE::Filter::Stackable|POE::Filter::Stackable>
+L<POE::Filter::Stackable>
 
 =cut

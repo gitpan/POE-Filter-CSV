@@ -8,4 +8,9 @@ t/3.t
 Makefile.PL
 examples/test.pl
 examples/test.csv
-META.yml                                 Module meta-data (added by MakeMaker)
+inc/Module/Install.pm
+inc/Module/Install/Base.pm
+inc/Module/Install/Makefile.pm
+inc/Module/Install/MakeMaker.pm
+inc/Module/Install/Metadata.pm
+META.yml

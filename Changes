@@ -1,6 +1,11 @@
 POE::Filter::CSV
 ================
 
+1.04	Wed Jan 24 10:52:06 GMT 2006
+	- Makefile.PL now all M::I
+	- Minor code changes.
+	- Documentation fix.
+
 1.03	Tue Sep 26 11:37:09 BST 2006
 	- Switched to Module::Install
 

@@ -1,15 +1,8 @@
-#use ExtUtils::MakeMaker;
 use inc::Module::Install;
-
+name 'POE-Filter-CSV';
 author 'Chris Williams <chris@bingosnet.co.uk>';
 license 'perl';
-
-WriteMakefile(
-			  'NAME'	=> 'POE::Filter::CSV',
-			  'PREREQ_PM' => {
-							  'POE'    => 0.06_07,
-							  'Text::CSV'   => 0,
-							 },
-			  'VERSION_FROM' => 'lib/POE/Filter/CSV.pm',
-			  'dist' => { 'COMPRESS' => 'gzip --best' },
-			 );
+version_from 'lib/POE/Filter/CSV.pm';
+requires 'POE' => 0.38;
+requires 'Text::CSV' => 0;
+WriteAll();

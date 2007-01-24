@@ -12,14 +12,11 @@ use Text::CSV;
 use vars qw($VERSION);
 use base qw(POE::Filter);
 
-$VERSION = '1.03';
+$VERSION = '1.04';
 
 sub new {
   my $class = shift;
-  my %args = @_;
-
   my $self = {};
-
   $self->{BUFFER} = [];
   $self->{csv_filter} = Text::CSV->new();
   bless $self, $class;
@@ -46,7 +43,7 @@ sub get_one {
   my $events = [];
 
   my $event = shift @{ $self->{BUFFER} };
-  if ( defined ( $event ) ) {
+  if ( defined $event ) {
     my $status = $self->{csv_filter}->parse($event);
     push @$events, [ $self->{csv_filter}->fields() ] if $status;
   }
@@ -62,17 +59,15 @@ sub put {
       my $status = $self->{csv_filter}->combine(@$event);
       push @$raw_lines, $self->{csv_filter}->string() if $status;
 
-    } else {
+    } 
+    else {
 	warn "non arrayref passed to put()\n";
     }
   }
   return $raw_lines;
 }
 
-
 1;
-
-
 __END__
 
 =head1 NAME
@@ -121,10 +116,6 @@ fields.
 =item put
 
 Takes an arrayref containing arrays of fields and returns an arrayref containing CSV formatted lines.
-
-=item debug
-
-
 
 =back
 

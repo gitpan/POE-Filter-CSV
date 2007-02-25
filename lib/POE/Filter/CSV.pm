@@ -12,7 +12,7 @@ use Text::CSV;
 use vars qw($VERSION);
 use base qw(POE::Filter);
 
-$VERSION = '1.04';
+$VERSION = '1.05';
 
 sub new {
   my $class = shift;

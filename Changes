@@ -1,7 +1,10 @@
 POE::Filter::CSV
 ================
 
-1.04	Wed Jan 24 10:52:06 GMT 2006
+1.05	Sun Feb 25 12:02:06 GMT 2007
+	- Added kwalitee test
+
+1.04	Wed Jan 24 10:52:06 GMT 2007
 	- Makefile.PL now all M::I
 	- Minor code changes.
 	- Documentation fix.

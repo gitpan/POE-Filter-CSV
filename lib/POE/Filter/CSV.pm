@@ -12,7 +12,7 @@ use Text::CSV;
 use vars qw($VERSION);
 use base qw(POE::Filter);
 
-$VERSION = '1.05';
+$VERSION = '1.06';
 
 sub new {
   my $class = shift;
@@ -72,7 +72,7 @@ __END__
 
 =head1 NAME
 
-POE::Filter::CSV -- A POE-based parser for CSV based files.
+POE::Filter::CSV - A POE-based parser for CSV based files.
 
 =head1 SYNOPSIS
 

@@ -3,6 +3,8 @@ name 'POE-Filter-CSV';
 author 'Chris Williams <chris@bingosnet.co.uk>';
 license 'perl';
 version_from 'lib/POE/Filter/CSV.pm';
+abstract_from 'lib/POE/Filter/CSV.pm';
+build_requires 'Test::More' => 0.47;
 requires 'POE' => 0.38;
 requires 'Text::CSV' => 0;
 WriteAll();

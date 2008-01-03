@@ -12,13 +12,13 @@ use Text::CSV;
 use vars qw($VERSION);
 use base qw(POE::Filter);
 
-$VERSION = '1.07';
+$VERSION = '1.08';
 
 sub new {
   my $class = shift;
   my $self = {};
   $self->{BUFFER} = [];
-  $self->{csv_filter} = Text::CSV->new();
+  $self->{csv_filter} = Text::CSV->new(@_);
   bless $self, $class;
 }
 
@@ -67,6 +67,14 @@ sub put {
   return $raw_lines;
 }
 
+sub clone {
+  my $self = shift;
+  my $nself = { };
+  $nself->{$_} = $self->{$_} for keys %{ $self };
+  $nself->{BUFFER} = [ ];
+  return bless $nself, ref $self;
+}
+
 1;
 __END__
 
@@ -96,7 +104,8 @@ put to is in the examples/ directory of this distribution.
 
 =item new
 
-Creates a new POE::Filter::CSV object. Takes no arguments.
+Creates a new POE::Filter::CSV object. Any arguments given are passed through to the constructor for
+L<Text::CSV>.
 
 =back
 
@@ -116,6 +125,10 @@ fields.
 =item put
 
 Takes an arrayref containing arrays of fields and returns an arrayref containing CSV formatted lines.
+
+=item clone
+
+Makes a copy of the filter, and clears the copy's buffer.
 
 =back
 

@@ -1,33 +1,33 @@
-# Before `make install' is performed this script should be runnable with
-# `make test'. After `make install' it should work as `perl 1.t'
-
-#########################
-
-# change 'tests => 1' to 'tests => last_test_to_print';
-
-use Test::More tests => 4;
+use Test::More tests => 10;
 BEGIN { use_ok('POE::Filter::CSV') };
 
-#########################
+my $test = '"This is just a test",line,"so there"';
 
-# Insert your test code below, the Test::More module is use()ed here so read
-# its man page ( perldoc Test::More ) for help writing this test script.
+my $filter = POE::Filter::CSV->new();
 
-my ( $test ) = '"This is just a test","line","so there"';
+isa_ok( $filter, 'POE::Filter::CSV' );
+isa_ok( $filter, 'POE::Filter' );
 
-my ($filter) = POE::Filter::CSV->new();
-
-ok( defined ( $filter ), 'Create Filter');
+ok( defined $filter, 'Create Filter');
 
 my $results = $filter->get( [ $test ] );
 
-foreach my $result ( @$results ) {
-  ok( ( $result->[0] eq 'This is just a test' and $result->[1] eq 'line' and $result->[2] eq 'so there' ) , 'Test Get' );
-}
+ok( ( $_->[0] eq 'This is just a test' and $_->[1] eq 'line' and $_->[2] eq 'so there' ), 'Test Get' ) 
+   for @$results;
 
-my ($answer) = $filter->put( $results );
+my $answer = $filter->put( $results );
 
-foreach my $line ( @$answer ) {
-  ok( $line eq $test, 'Test put' );
-}
+ok( $_ eq $test, 'Test put' ) for @$answer;
 
+my $clone = $filter->clone();
+
+isa_ok( $clone, 'POE::Filter::CSV' );
+isa_ok( $clone, 'POE::Filter' );
+
+my $results2 = $clone->get( [ $test ] );
+
+ok( ( $_->[0] eq 'This is just a test' and $_->[1] eq 'line' and $_->[2] eq 'so there' ), 'Test Get' )
+   for @$results2;
+
+my $answer2 = $clone->put( $results2 );
+ok( $_ eq $test, 'Test put' ) for @$answer2;

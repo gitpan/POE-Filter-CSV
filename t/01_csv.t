@@ -1,3 +1,4 @@
+use strict;
 use Test::More tests => 10;
 BEGIN { use_ok('POE::Filter::CSV') };
 

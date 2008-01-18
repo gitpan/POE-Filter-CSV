@@ -1,6 +1,9 @@
 POE::Filter::CSV
 ================
 
+1.10	Fri Jan 18 15:36:12 GMT 2008
+	- Fixed test script naming
+
 1.08	Thu Jan  3 17:16:46 GMT 2008
 	- Fixed for Text::CSV-1.00, prereq version updated
 	- Added clone() method

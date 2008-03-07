@@ -8,11 +8,12 @@
 package POE::Filter::CSV;
 
 use strict;
+use warnings;
 use Text::CSV;
 use vars qw($VERSION);
 use base qw(POE::Filter);
 
-$VERSION = '1.10';
+$VERSION = '1.12';
 
 sub new {
   my $class = shift;

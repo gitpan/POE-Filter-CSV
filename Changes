@@ -1,6 +1,9 @@
 POE::Filter::CSV
 ================
 
+1.14	Tue Jun 24 13:14:53 BST 2008
+	- Added LICENSE information.
+
 1.12	Fri Mar  7 07:15:43 GMT 2008
 	- Kwalitee fixes.
 

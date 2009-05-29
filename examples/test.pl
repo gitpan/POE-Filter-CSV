@@ -22,7 +22,8 @@ sub start_test {
   $heap->{filter}->push( POE::Filter::Line->new(),
 			 POE::Filter::CSV->new(),
   );
-  my ($fh) = new FileHandle "< test.csv";
+
+  my $fh = new FileHandle "< test.csv";
 
   $heap->{wheel} = POE::Wheel::ReadWrite->new(
 	Handle => $fh,
@@ -30,18 +31,20 @@ sub start_test {
 	ErrorEvent => 'f_error',
 	Filter => $heap->{filter},
   );
+  return;
 }
 
 sub stop_test {
   my ($kernel,$heap) = @_[KERNEL,HEAP];
-
-  delete ( $heap->{wheel} );
+  delete $heap->{wheel};
+  return;
 }
 
 sub file_error {
   my ($kernel,$heap) = @_[KERNEL,HEAP];
-
-  delete ( $heap->{wheel} );
+  warn join(' ', @_[ARG0..$#_]), "\n";
+  delete $heap->{wheel};
+  return;
 }
 
 sub file_input {
@@ -50,4 +53,5 @@ sub file_input {
   foreach my $col ( @$input ) {
 	print "$col\n";
   }
+  return;
 }
